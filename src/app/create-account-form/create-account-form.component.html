@@ -1,0 +1,84 @@
+<div class="container py-5">
+    <h1 class="text-center mb-5" style="color: rgb(29,52,84);"><strong>Ouverture d&#39;un compte de paiement</strong></h1>
+    <hr />
+    <h6 style="color: var(--bs-gray-600);">Veuillez choisir un compte </h6>
+    <form #ClientOpenAccountForm="ngForm" (ngSubmit)="createAccountClicked()">
+        <div class="row" style="margin: 12px;">
+            <div class="col" style="margin: 10px;">
+                <select id="AccountTType" 
+                [(ngModel)]="accountType"
+                 #AccountTType="ngModel"
+                 class="form-select"
+                 style="text-align: left;"
+                 name="accountType"
+                 required
+                
+                  >
+                  <option *ngFor="let AccountType of accountTypes" value="{{AccountType}}" >{{AccountType}}</option>
+                </select>
+            </div>
+        </div>
+        <hr />
+        <h5 style="text-align: left;">Informations personnelles</h5>
+        <div class="row gx-3 gy-3 mb-2" style="padding-top: 10px;">
+            <div class="col-sm-12 col-md-6">
+                <input type="text"
+                                         ngModel
+                                         #FirstName="ngModel"
+                                          id="fname" 
+                                          name="fname"
+                                          [disabled]="true"
+                                          placeholder="Prenom"
+                                          class="form-control"
+                                           required 
+                                          [value]="client.nom"
+                                           pattern="[a-zA-Z]+">
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <input type="text" 
+                                        ngModel
+                                        #LastName="ngModel"
+                                        id="lname" 
+                                        name="lname" 
+                                        placeholder="Nom"
+                                        [disabled]="true"
+                                        class="form-control"
+                                        required
+                                        pattern="[a-zA-Z]+"
+                                        [value]="client.prenom">
+            </div>
+        </div>
+        <div class="row gx-3 gy-3 mb-2">
+            <div class="col-sm-12 col-md-6">
+                <input type="text"
+                ngModel
+                #AgentPhoneNumber="ngModel" 
+                class="form-control"
+                id="AgentPhoneNumber" 
+                placeholder="Téléphone"
+                name="AgentPhoneNumber" 
+                [disabled]="true"
+                required
+                pattern="[0-9+]+"
+                minlength="10" [value]="client.numTel">
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <input type="text"
+                                         ngModel
+                                         #AgentEmail="ngModel" 
+                                         id="Agentemail" 
+                                         name="AgentEmail" 
+                                         class="form-control"
+                                         placeholder="Email"
+                                         [disabled]="true"
+                                         required 
+                                         pattern="^[a-zA-Z0-9.]+@gmail.com$"
+                                         [value]="client.email">
+            
+            </div>
+        </div>
+        <div class="text-end">
+            <button class="btn btn-success btn-sm" type="submit" style="padding-top: 6px;" [disabled]="accountType==null"> Valider</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,34 @@
+<div class="container py-5 my-5">
+    <h1 class="text-center mb-5" style="color: rgb(29,52,84);"><strong>Effectuer un virement bancaire</strong></h1>
+    <h4 style="color: rgb(29,52,84);">Veuillez remplir ce formulaire</h4>
+    <hr />
+    <form class="my-5">
+        <div class="alert alert-danger" role="alert" *ngIf="showNotEnoughCredit">Vous n'avez pas assez de crédit !</div>
+        <div class="row gx-3 gy-3 mb-2">
+            <div class="col-sm-12 col-md-6"><input class="form-control" type="text" placeholder="Nom" required /></div>
+            <div class="col-sm-12 col-md-6"><input class="form-control" type="text" placeholder="Prénom" required /></div>
+        </div>
+        <div class="row gx-3 gy-3 mb-2">
+            <div class="col-sm-12 col-md-6">
+                <input type="text" id="form3Example3" class="form-control" [(ngModel)]="virementRequest.montant" #Montant="ngModel" name="Montant" placeholder="Montant" inputmode="numeric" required pattern="[0-9,]+" />
+                <div class="m-2" *ngIf="(Montant.touched && !Montant.valid)">
+                    <div class="alert alert-danger" *ngIf="(Montant.errors && Montant.errors.required)">Le champ Montant est requis</div>
+                    <div class="alert alert-danger" *ngIf="(Montant.errors && Montant.errors.pattern)">Format invalide pour le montant : doit contenir uniquement des chiffres</div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <input type="text" id="form3Example3" class="form-control" [(ngModel)]="virementRequest.ribDest" #RibDest="ngModel" name="RibDest" required placeholder="Numéro de compte" pattern="[0-9]+" maxlength="24" minlength="24" />
+                <div class="col-lg-8" *ngIf="(RibDest.touched && !RibDest.valid)">
+                    <div class="alert alert-danger" *ngIf="(RibDest.errors && RibDest.errors.required)">Le champ Numéro de compte est requis</div>
+                    <div class="alert alert-danger" *ngIf="(RibDest.errors && RibDest.errors.pattern)">Format invalide pour le Numéro de compte : doit contenir uniquement des chiffres</div>
+                    <div class="alert alert-danger" *ngIf="(RibDest.errors && RibDest.errors.maxlength)">Le champ Numéro de compte ne peut contenir que 24 chiffres</div>
+                    <div class="alert alert-danger" *ngIf="(RibDest.errors && RibDest.errors.minlength)">Le champ Numéro de compte doit contenir 24 chiffres</div>
+                </div>
+            </div>
+        </div>
+        <div class="text-end">
+            <hr />
+            <button class="btn btn-success" type="submit" (click)="effectuerVirementClicked()" [disabled]="!(Montant.valid && RibDest.valid)">Valider</button>
+        </div>
+    </form>
+</div>
